@@ -1,5 +1,9 @@
 import { Component } from 'react';
-import { SearchbarEl } from './Searchbar.styled';
+import {
+  SearchbarEl,
+  SearchbarInput,
+  SerchbarButton,
+} from './Searchbar.styled';
 
 export class Searchbar extends Component {
   state = {
@@ -24,11 +28,11 @@ export class Searchbar extends Component {
     return (
       <SearchbarEl onSubmit={this.handlerSubmit}>
         <form>
-          <button type="submit">
+          <SerchbarButton type="submit">
             <span>Search</span>
-          </button>
+          </SerchbarButton>
 
-          <input
+          <SearchbarInput
             type="text"
             autoComplete="off"
             autoFocus
