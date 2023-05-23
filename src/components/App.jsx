@@ -15,7 +15,7 @@ export class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
     if (prevState.query !== query) {
-      this.setState({ images: [] });
+      this.setState({ images: [], page: 1 });
     }
     if (
       (prevState.query !== query || prevState.page !== page) &&

@@ -19,6 +19,10 @@ export class Searchbar extends Component {
     const { onSubmit } = this.props;
     const { inputValue } = this.state;
     evt.preventDefault();
+    if (inputValue === '') {
+      alert('Please enter a search query');
+      return;
+    }
     onSubmit(inputValue.trim());
     this.resetInput();
   };

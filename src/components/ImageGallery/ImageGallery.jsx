@@ -1,10 +1,12 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { List } from './ImageGallery.styled';
+
 export function ImageGallery({ images }) {
+  console.log(images);
   return (
     <List>
-      {images.map(({ id, webformatURL }) => (
-        <ImageGalleryItem key={id} src={webformatURL} />
+      {images.map(({ webformatURL }, index) => (
+        <ImageGalleryItem key={index} src={webformatURL} />
       ))}
     </List>
   );
