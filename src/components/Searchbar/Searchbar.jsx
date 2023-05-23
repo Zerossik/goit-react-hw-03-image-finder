@@ -3,6 +3,7 @@ import {
   SearchbarEl,
   SearchbarInput,
   SerchbarButton,
+  SearchForm,
 } from './Searchbar.styled';
 
 export class Searchbar extends Component {
@@ -26,8 +27,8 @@ export class Searchbar extends Component {
   };
   render() {
     return (
-      <SearchbarEl onSubmit={this.handlerSubmit}>
-        <form>
+      <SearchbarEl>
+        <SearchForm onSubmit={this.handlerSubmit}>
           <SerchbarButton type="submit">
             <span>Search</span>
           </SerchbarButton>
@@ -40,7 +41,7 @@ export class Searchbar extends Component {
             onChange={this.handlerChange}
             value={this.state.inputValue}
           />
-        </form>
+        </SearchForm>
       </SearchbarEl>
     );
   }

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { getImages } from 'services/images-api';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Button } from './Button/Button';
 
 export class App extends Component {
   state = {
@@ -13,8 +14,16 @@ export class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
-    if (prevState.query !== query && query !== '') {
-      this.setState({ isLoading: true });
+    if (prevState.query !== query) {
+      this.setState({ images: [] });
+    }
+    if (
+      (prevState.query !== query || prevState.page !== page) &&
+      query !== ''
+    ) {
+      this.setState({
+        isLoading: true,
+      });
 
       getImages(query, page)
         .then(({ data: { hits } }) => {
@@ -33,13 +42,24 @@ export class App extends Component {
   onSubmit = query => {
     this.setState({ query });
   };
+  handlerPageClick = () => {
+    this.setState(prev => ({
+      page: prev.page + 1,
+    }));
+  };
+
   render() {
     const { query, images } = this.state;
     return (
-      <>
+      <div>
         <Searchbar onSubmit={this.onSubmit} />
-        {query !== '' && <ImageGallery images={images} />}
-      </>
+        {query !== '' && (
+          <>
+            <ImageGallery images={images} />
+            <Button text={'Load more'} onClick={this.handlerPageClick} />
+          </>
+        )}
+      </div>
     );
   }
 }

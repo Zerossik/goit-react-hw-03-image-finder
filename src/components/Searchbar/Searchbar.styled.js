@@ -23,7 +23,8 @@ export const SearchForm = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 600px;
+  height: 48px;
+  max-width: 400px;
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
@@ -33,14 +34,13 @@ export const SearchForm = styled.form`
 export const SearchbarInput = styled.input`
   display: inline-block;
   width: 100%;
+  height: 100%;
   font: inherit;
   font-size: 20px;
   border: none;
   outline: none;
-  padding-left: 4px;
+  padding-left: 52px;
   padding-right: 4px;
-
-  position: relative;
 `;
 
 export const SerchbarButton = styled.button`
