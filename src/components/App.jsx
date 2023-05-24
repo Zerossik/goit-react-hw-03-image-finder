@@ -3,6 +3,8 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { getImages } from 'services/images-api';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
+import { Spiner } from './Loader/Loader';
+import style from './style.module.css';
 
 export class App extends Component {
   state = {
@@ -25,18 +27,20 @@ export class App extends Component {
         isLoading: true,
       });
 
-      getImages(query, page)
-        .then(({ data: { hits } }) => {
-          if (hits) {
-            this.setState(prevState => ({
-              images: [...prevState.images, ...hits],
-            }));
-          }
-        })
-        .catch(error => console.log(error.message))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
+      setTimeout(() => {
+        getImages(query, page)
+          .then(({ data: { hits } }) => {
+            if (hits) {
+              this.setState(prevState => ({
+                images: [...prevState.images, ...hits],
+              }));
+            }
+          })
+          .catch(error => console.log(error.message))
+          .finally(() => {
+            this.setState({ isLoading: false });
+          });
+      }, 1000);
     }
   }
   onSubmit = query => {
@@ -49,14 +53,18 @@ export class App extends Component {
   };
 
   render() {
-    const { query, images } = this.state;
+    const { images, isLoading } = this.state;
     return (
-      <div>
+      <div className={style.wrap}>
         <Searchbar onSubmit={this.onSubmit} />
-        {query !== '' && (
+        <Spiner isLoading={isLoading} />
+        {images.length > 0 && (
           <>
             <ImageGallery images={images} />
-            <Button text={'Load more'} onClick={this.handlerPageClick} />
+            <div>
+              {<Spiner isLoading={true} />}
+              <Button text={'Load more'} onClick={this.handlerPageClick} />
+            </div>
           </>
         )}
       </div>
