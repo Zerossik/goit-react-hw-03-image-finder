@@ -1,6 +1,7 @@
 import { Backdrop, ModalWrap } from './Modal.styled';
 import React from 'react';
 import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
 
 export function Modal({ children, handleBackdropClick }) {
   return createPortal(
@@ -10,3 +11,6 @@ export function Modal({ children, handleBackdropClick }) {
     document.getElementById('modal')
   );
 }
+Modal.propTypes = {
+  handleBackdropClick: PropTypes.func.isRequired,
+};
