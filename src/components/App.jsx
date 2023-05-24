@@ -59,7 +59,6 @@ export class App extends Component {
   modalClose = evt => {
     if (evt.code === 'Escape') {
       this.toggleIsOpen(null);
-      console.log('АГА');
     }
   };
   onSubmit = query => {
