@@ -5,6 +5,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Spiner } from './Loader/Loader';
 import style from './style.module.css';
+import { Modal } from './Modal/Modal';
 
 export class App extends Component {
   state = {
@@ -12,6 +13,8 @@ export class App extends Component {
     page: 1,
     isLoading: false,
     images: [],
+    isOpen: false,
+    imgIndex: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -51,22 +54,32 @@ export class App extends Component {
       page: prev.page + 1,
     }));
   };
+  toggleIsOpen = index => {
+    console.log(index);
+    this.setState(prevState => ({
+      isOpen: !prevState.isOpen,
+      imgIndex: index,
+    }));
+  };
 
   render() {
-    const { images, isLoading } = this.state;
+    const { images, isLoading, isOpen } = this.state;
     return (
       <div className={style.wrap}>
         <Searchbar onSubmit={this.onSubmit} />
+
         <Spiner isLoading={isLoading} />
         {images.length > 0 && (
           <>
-            <ImageGallery images={images} />
-            <div>
-              {<Spiner isLoading={true} />}
+            <ImageGallery images={images} toggleIsOpen={this.toggleIsOpen} />
+            {isLoading ? (
+              <Spiner isLoading={true} />
+            ) : (
               <Button text={'Load more'} onClick={this.handlerPageClick} />
-            </div>
+            )}
           </>
         )}
+        {isOpen && <Modal>{console.log(images)}</Modal>}
       </div>
     );
   }
