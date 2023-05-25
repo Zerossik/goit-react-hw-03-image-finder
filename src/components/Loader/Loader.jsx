@@ -1,4 +1,5 @@
 import { Dna } from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 
 export function Spiner({ isLoading }) {
   return (
@@ -12,3 +13,6 @@ export function Spiner({ isLoading }) {
     />
   );
 }
+Spiner.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};

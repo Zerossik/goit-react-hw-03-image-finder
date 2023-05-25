@@ -18,9 +18,13 @@ export class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { query, page } = this.state;
+    const { query, page, isOpen } = this.state;
     if (prevState.query !== query) {
-      this.setState({ images: [], page: 1 });
+      this.setState({
+        images: [],
+        page: 1,
+        isOpen: false,
+      });
     }
     if (
       (prevState.query !== query || prevState.page !== page) &&
@@ -45,7 +49,18 @@ export class App extends Component {
           });
       }, 1000);
     }
+    if (prevState.isOpen !== isOpen && isOpen) {
+      window.addEventListener('keydown', this.modalClose);
+    } else {
+      window.removeEventListener('keydown', this.modalClose);
+    }
   }
+
+  modalClose = evt => {
+    if (evt.code === 'Escape') {
+      this.toggleIsOpen(null);
+    }
+  };
   onSubmit = query => {
     this.setState({ query });
   };
@@ -55,15 +70,18 @@ export class App extends Component {
     }));
   };
   toggleIsOpen = index => {
-    console.log(index);
     this.setState(prevState => ({
       isOpen: !prevState.isOpen,
       imgIndex: index,
     }));
   };
-
+  handleBackdropClick = evt => {
+    if (evt.currentTarget === evt.target) {
+      this.toggleIsOpen(null);
+    }
+  };
   render() {
-    const { images, isLoading, isOpen } = this.state;
+    const { images, isLoading, isOpen, imgIndex } = this.state;
     return (
       <div className={style.wrap}>
         <Searchbar onSubmit={this.onSubmit} />
@@ -79,7 +97,11 @@ export class App extends Component {
             )}
           </>
         )}
-        {isOpen && <Modal>{console.log(images)}</Modal>}
+        {isOpen && (
+          <Modal handleBackdropClick={this.handleBackdropClick}>
+            <img src={images[imgIndex].largeImageURL} alt="IMG" />
+          </Modal>
+        )}
       </div>
     );
   }

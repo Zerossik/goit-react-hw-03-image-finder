@@ -13,7 +13,7 @@ export const Backdrop = styled.div`
 `;
 
 export const ModalWrap = styled.div`
-  width: 50%;
-  height: auto;
+  width: 40%;
   background-color: #fff;
+  margin: auto;
 `;

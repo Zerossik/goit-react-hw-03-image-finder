@@ -1,4 +1,5 @@
 import { Item, Img } from './ImageGalleryItem.styled';
+import PropTypes from 'prop-types';
 export function ImageGalleryItem({ src, toggleIsOpen }) {
   return (
     <Item onClick={toggleIsOpen}>
@@ -6,3 +7,7 @@ export function ImageGalleryItem({ src, toggleIsOpen }) {
     </Item>
   );
 }
+ImageGalleryItem.propTypes = {
+  src: PropTypes.string.isRequired,
+  toggleIsOpen: PropTypes.func.isRequired,
+};
