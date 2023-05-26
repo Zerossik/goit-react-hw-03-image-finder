@@ -22,7 +22,6 @@ export class App extends Component {
     if (prevState.query !== query) {
       this.setState({
         images: [],
-        page: 1,
         isOpen: false,
       });
     }
@@ -45,7 +44,9 @@ export class App extends Component {
           })
           .catch(error => console.log(error.message))
           .finally(() => {
-            this.setState({ isLoading: false });
+            this.setState({
+              isLoading: false,
+            });
           });
       }, 1000);
     }
@@ -62,7 +63,7 @@ export class App extends Component {
     }
   };
   onSubmit = query => {
-    this.setState({ query });
+    this.setState({ query, page: 1 });
   };
   handlerPageClick = () => {
     this.setState(prev => ({
