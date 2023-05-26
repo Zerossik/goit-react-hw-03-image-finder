@@ -86,7 +86,7 @@ export class App extends Component {
       <div className={style.wrap}>
         <Searchbar onSubmit={this.onSubmit} />
 
-        <Spiner isLoading={isLoading} />
+        {images.length === 0 && <Spiner isLoading={isLoading} />}
         {images.length > 0 && (
           <>
             <ImageGallery images={images} toggleIsOpen={this.toggleIsOpen} />
