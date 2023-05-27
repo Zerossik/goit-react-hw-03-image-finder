@@ -37,3 +37,6 @@ export class Modal extends Component {
     );
   }
 }
+Modal.propTypes = {
+  toggleIsOpen: PropTypes.func.isRequired,
+};
