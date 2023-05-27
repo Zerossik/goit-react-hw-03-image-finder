@@ -33,22 +33,20 @@ export class App extends Component {
         isLoading: true,
       });
 
-      setTimeout(() => {
-        getImages(query, page)
-          .then(({ data: { hits } }) => {
-            if (hits) {
-              this.setState(prevState => ({
-                images: [...prevState.images, ...hits],
-              }));
-            }
-          })
-          .catch(error => console.log(error.message))
-          .finally(() => {
-            this.setState({
-              isLoading: false,
-            });
+      getImages(query, page)
+        .then(({ data: { hits } }) => {
+          if (hits) {
+            this.setState(prevState => ({
+              images: [...prevState.images, ...hits],
+            }));
+          }
+        })
+        .catch(error => console.log(error.message))
+        .finally(() => {
+          this.setState({
+            isLoading: false,
           });
-      }, 1000);
+        });
     }
   }
 
