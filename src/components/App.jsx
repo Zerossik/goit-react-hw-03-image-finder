@@ -50,18 +50,8 @@ export class App extends Component {
           });
       }, 1000);
     }
-    if (prevState.isOpen !== isOpen && isOpen) {
-      window.addEventListener('keydown', this.modalClose);
-    } else {
-      window.removeEventListener('keydown', this.modalClose);
-    }
   }
 
-  modalClose = evt => {
-    if (evt.code === 'Escape') {
-      this.toggleIsOpen(null);
-    }
-  };
   onSubmit = query => {
     this.setState({ query, page: 1 });
   };
@@ -76,11 +66,7 @@ export class App extends Component {
       imgIndex: index,
     }));
   };
-  handleBackdropClick = evt => {
-    if (evt.currentTarget === evt.target) {
-      this.toggleIsOpen(null);
-    }
-  };
+
   render() {
     const { images, isLoading, isOpen, imgIndex } = this.state;
     return (
@@ -99,7 +85,7 @@ export class App extends Component {
           </>
         )}
         {isOpen && (
-          <Modal handleBackdropClick={this.handleBackdropClick}>
+          <Modal toggleIsOpen={this.toggleIsOpen}>
             <img src={images[imgIndex].largeImageURL} alt="IMG" />
           </Modal>
         )}
